@@ -6,7 +6,7 @@ var server = http.createServer(function(request, response){
   response.setHeader('Access-Control-Allow-Origin', '*');
   response.setHeader('Access-Control-Allow-Credentials', true);
   response.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  response.setHeader('Access-Control-Allow-Methods', 'GET, POST, HEAD, OPTIONS, PUT, PATCH, DELETE');
+  response.setHeader('Access-Control-Allow-Methods', 'GET, POST, HEA D, OPTIONS, PUT, PATCH, DELETE');
   response.setHeader('Access-Control-Request-Method', '*');
 
   // URL Parsing
@@ -17,6 +17,9 @@ var server = http.createServer(function(request, response){
   console.log(path + " : " + method);
 
   // Routing & Control
+  // routing: how do i associate that request to a particular behavior
+  // routing is the if statement, control is the code inside the if
+  // if you have a post on login, that's a login!
   if (path === '/login' && method === 'POST' ) {                  //login
     var data = '';
     request.setEncoding('utf8');

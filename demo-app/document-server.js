@@ -4,6 +4,8 @@ var http = require('http'),
 
 var server = http.createServer(function(request, response){
   // Setting CORS Headers
+
+  // because our app is so simple, we're letting pretty much anything through
   response.setHeader('Access-Control-Allow-Origin', '*');
   response.setHeader('Access-Control-Allow-Credentials', true);
   response.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
@@ -24,9 +26,17 @@ var server = http.createServer(function(request, response){
     response.writeHead(200, {'Content-Type' : 'text/json'});
     response.end(JSON.stringify({documents: docs}));
 
+
+
   } else if (method === "OPTIONS") {
     response.writeHead(200, {'Content-Type' : 'text/plain'});
     response.end("Pre-flight");
+    // cors-related: pre-flight to prepare response
+    // every ajax request are pre-flighted (except GETs and HEADs) - like puts, posts, etc.
+    // shoots off an "options" request to the server - just checking headers. the server sends back the appropriate headers. are you allowing requests from this page that's doing ajax? is this method allowed? looks at headers, etc. if everything comes back good, it sends the ACTUAL request. If the pre-flight fails, it will issue a CORS error on the client side and it won't send an actual request. The server will see an options request.
+
+    // by default, http requests from foreign servers are not allowed. its not safe to allow anything to shoot off ajax requests. if you click on an ad, could send an ajax request to banks to see if you're logged in / make a transfer to account etc. so for the client's protection. cors allows a server to say "only these origins may make requests to it." The browser won't allow it.
+
 
   } else {                              //404 - no path
     response.writeHead(404, {'Content-Type' : 'text/plain'});

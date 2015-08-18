@@ -35,6 +35,7 @@ $(document).ready(function(){
     }).done(function(data){
       console.log("Successfully logged in.")
       accessKey = data.accessKey;
+      console.log(data.accessKey);
     }).fail(function(data, testStatus, jqxhr){
       console.error(data);
       console.error(testStatus);
